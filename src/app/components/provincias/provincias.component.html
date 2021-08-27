@@ -1,0 +1,79 @@
+<ol class="breadcrumb" style="background-color:#fbfbfb">
+    <li class="breadcrumb-item"><a routerLink="/ventas">Inicio</a></li>
+    <li class="breadcrumb-item"><a routerLink="#">Provincias</a></li>
+</ol>
+<div class="row">
+
+    <div class="col-sm-8">
+        <div class="card">
+            <div class="card-header">
+                Grilla provincias
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input placeholder="Ingrese búsqueda" [(ngModel)]="buscar" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped">
+
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Descripcion</th>
+                            <th>Operaciones</th>
+                        </tr>
+                    </thead>
+        
+                    <tbody>
+                        <tr *ngFor = "let provincia of listProvincias | filter:buscar | paginate:{itemsPerPage:5,currentPage:p}">
+                            <td>{{provincia.id_provincia}}</td> 
+                            <td>{{provincia.descripcion}}</td>
+                            
+                            <td>
+                                <div class="btn-group btn-group-sm" >
+                                    <button class="btn btn-danger" (click)="eliminarProvincia(provincia.id_provincia)"  ><i class="fas fa-trash"></i></button><!--eliminar -->
+                                   <button  class="btn btn-primary" (click)="editarProvincia(provincia)"> <i class="fas fa-edit"></i> </button><!-- modificar -->
+                               </div>
+                            </td>
+                        </tr>
+                    </tbody>
+        
+                </table>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        
+        <div class="card">
+            <div class="card-header">Formulario de provincias</div>
+            <div class="card-body">
+
+
+                <form [formGroup]="formProvincia"  (ngSubmit)= "guardarProvincia()">
+
+                    <input formControlName='id_provincia' class="form-control" type="hidden" readonly>
+                    <div class="form-group">
+                        <input formControlName="descripcion" placeholder="Ingrese la descripcion" type="text" class="form-control">
+                    </div>
+
+                    <div class="btn-group">
+                        <button [class]="class_button_sa">{{text_button}}</button>
+                        <button [style]="class_display" type="button" class="btn btn-danger btn-sm" (click)="resetearformProvincia()">Cancelar</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>

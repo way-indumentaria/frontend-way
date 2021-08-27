@@ -1,0 +1,201 @@
+<ol class="breadcrumb" style="background-color:#fbfbfb">
+    <li class="breadcrumb-item"><a routerLink="/ventas">Inicio</a></li>
+    <li class="breadcrumb-item"><a routerLink="#">Productos</a></li>
+</ol>
+
+<div class="row">
+    <div class="col-sm-3">
+        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal"  (click)="resetearformProducto()">
+        Crear producto
+      </button>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-12">
+
+        <div class="card">
+            <div class="card-header">Grilla productos</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input placeholder="Ingrese búsqueda" [(ngModel)]="buscar" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped" >
+
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>codigo</th>
+                            <th>descripcion</th>
+                            <th>precio_compra</th>
+                            <th>precio_way</th>
+                            <th>precio_final</th>
+                            <th>stock</th>
+                            <th>categoria</th>
+                            <th>estado</th>
+                            <!--<th>descuento</th>-->
+                            <th>categoria_sexo</th>
+                            <th>fecha_carga</th>
+                            <th>operaciones</th>
+                            
+        
+        
+                        </tr>
+                    </thead>
+        
+                    <tbody>
+                        <tr *ngFor = "let producto of listProductos | filter:buscar | paginate:{itemsPerPage:10,currentPage:p}">
+                           
+                            <td>{{producto.id_producto}}</td>
+                            <td>{{producto.codigo}}</td>
+                            <td>{{producto.descripcion}}</td>
+                            <td>{{producto.precio_compra}}</td>
+                            <td>{{producto.precio_way}}</td>
+                            <td>{{producto.precio_final}}</td>
+                            <td>{{producto.stock}}</td>
+                            <td>{{producto.descripcion_categoria}}</td>
+                            <td>
+                                <div *ngIf="producto.estado == 0; else loggedOut">
+                                    <span class="badge badge-danger">Inactivo</span>
+                                  </div>
+                                  
+                                  <ng-template #loggedOut>
+                                    <span class="badge badge-success">Activo</span>
+                                  </ng-template>
+                            </td>
+                            <!--<td>{{producto.descuento}}</td>-->
+                            <td>
+                                <div *ngIf="producto.categoria_sexo == 0; else loggedOut2">
+                                    <span class="badge badge-primary">Hombre</span>
+                                  </div>
+                                  
+                                  <ng-template #loggedOut2>
+                                    <span class="badge badge-danger">Mujer</span>
+                                  </ng-template>
+                            </td>
+                            <td>{{producto.fecha_carga_formateada}}</td>
+                            <td>
+                                <div class="btn-group btn-group-sm" >
+                                <button class="btn btn-danger" (click)="eliminarProducto(producto.id_producto)"  ><i class="fas fa-trash"></i></button><!--eliminar -->
+                               <button  class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="editarProducto(producto)"> <i class="fas fa-edit"></i> </button><!-- modificar -->
+                                
+                           </div>
+                           </td>
+        
+                        </tr>
+        
+                    </tbody>
+        
+                </table>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Productos</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form [formGroup]="formProducto" (ngSubmit)="guardarProducto()">
+        <div class="modal-body">
+
+                 <!-- <input formControlName='id_producto' type="text">  -->
+                 <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <input formControlName="codigo" placeholder="Ingrese el codigo" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <input formControlName="descripcion" placeholder="Ingrese la descripcion" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <input formControlName="stock" placeholder="Ingrese stock" type="number" class="form-control">
+                    </div>
+                 </div>
+
+                 <div class="row">
+                     <div class="col">
+                        <div class="form-group">
+                            <input formControlName="precio_compra" placeholder="Ingrese precio compra" type="text" class="form-control">
+                        </div>
+                     </div>
+                     <div class="col">
+                        <div class="form-group">
+                            <input formControlName="precio_way" placeholder="Ingrese precio way" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <input formControlName="precio_final" placeholder="Ingrese precio final" type="text" class="form-control">
+                        </div>
+                    </div>
+                 </div>
+
+                <div class="form-group">
+                    <select name="" id="" formControlName="categoria" class="form-control">
+                        <option value="0" disabled selected>Seleccione una categoria</option>
+                        <option  *ngFor="let fila of listCategoria" [value]="fila.id_categoria">
+                            {{fila.descripcion}}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <select name="" id="" formControlName="estado" class="form-control" placeholder="Ingrese el estado">
+                        <option value="-1" disabled selected>Seleccione un estado</option>
+                        <option value="0">Inactivo</option>
+                        <option value="1">Activo</option>
+                    </select>
+                </div>
+
+                <!--<div class="form-group">
+                    <input formControlName="descuento" placeholder="Ingrese el descuento" type="text" class="form-control">
+                </div>-->
+
+                <div class="form-group">
+                    <select name="" id="" formControlName="categoria_sexo" class="form-control">
+                        <option value="-1" disabled selected>Seleccione un sexo</option>
+                        <option value="0">Hombre</option>
+                        <option value="1">Mujer</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <input formControlName="fecha_carga" class="form-control" placeholder="YYYY-MM-DD"
+                           name="dp" ngbDatepicker #d="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-secondary calendar" (click)="d.toggle()" type="button">
+                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-calendar-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zM8.5 8.5a.5.5 0 0 0-1 0V10H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V11H10a.5.5 0 0 0 0-1H8.5V8.5z"/>
+                          </svg>
+                      </button>
+                    </div>
+                  </div>    
+            
+        </div>
+        <div class="modal-footer">
+          
+          <button [class]="class_button_sa">{{text_button}}</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+    </form>
+      </div>
+    </div>
+</div>

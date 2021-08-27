@@ -1,0 +1,85 @@
+<ol class="breadcrumb" style="background-color:#fbfbfb">
+    <li class="breadcrumb-item"><a routerLink="/ventas">Inicio</a></li>
+    <li class="breadcrumb-item"><a routerLink="#">Localidades</a></li>
+</ol>
+
+<div class="row">
+
+    <div class="col-sm-8">
+        <div class="card">
+            <div class="card-header">Grilla localidades</div>
+       
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input placeholder="Ingrese búsqueda" [(ngModel)]="buscar" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Descripcion</th>
+                            <th>Provincia</th>
+                            <th>Operaciones</th>
+                        </tr>
+                    </thead>
+        
+                    <tbody>
+                        <tr *ngFor = "let localidad of listLocalidades | filter:buscar | paginate:{itemsPerPage:10,currentPage:p}">
+                            <td>{{localidad.id_localidad}}</td>
+                            <td>{{localidad.descripcion}}</td>
+                            <td>{{localidad.descripcion_provincia}}</td>
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    <button  class="btn btn-danger" (click)="eliminarLocalidad(localidad.id_localidad)"> <i class="fas fa-trash"></i> </button>
+                                    <button  class="btn btn-primary" (click)="editarLocalidad(localidad)"> <i class="fas fa-edit"></i> </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+        
+                </table>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        
+        <div class="card">
+            <div class="card-header">Formulario de localidades</div>
+            <div class="card-body">
+                <form [formGroup]="formLocalidad" (ngSubmit)= "guardarLocalidad()">
+
+                    <input formControlName="id_localidad" class="form-control" type="hidden" readonly>
+
+                    <div class="form-group">
+                        <input formControlName="descripcion" placeholder="Ingrese la descripcion" type="text" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <select name="" id="" formControlName="provincia" class="form-control">
+                            <option value="0" disabled selected>Seleccione una provincia</option>
+                            <option  *ngFor="let fila of listLocProvincias" [value]="fila.id_provincia">
+                                {{fila.descripcion}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <button [class]="class_button_sa">{{text_button}}</button>
+                        <button [style]="class_display" type="button" class="btn btn-danger btn-sm" (click)="resetearformLocalidad()">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>

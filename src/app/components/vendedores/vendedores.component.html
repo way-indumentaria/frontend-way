@@ -1,0 +1,214 @@
+<ol class="breadcrumb" style="background-color:#fbfbfb">
+    <li class="breadcrumb-item"><a routerLink="/ventas">Inicio</a></li>
+    <li class="breadcrumb-item"><a routerLink="#">Vendedores</a></li>
+</ol>
+
+<div class="row">
+    <div class="col-sm-3">
+    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal"  (click)="resetearformVendedor()">
+        Crear vendedor
+      </button>
+    </div>
+</div>
+<br>
+<div class="row">
+
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">Grilla vendedores</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input placeholder="Ingrese búsqueda" [(ngModel)]="buscar" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped" >
+
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>DNI</th>
+                            <th>Domicilio</th>
+                            <th>Email</th>
+                            <th>Localidad</th>
+                            <th>Adjunto</th>
+                            <th>Telefono</th>
+                            
+                            <th>Estado</th>
+                            <th>Operaciones</th>
+                            
+        
+        
+                        </tr>
+                    </thead>
+        
+                    <tbody>
+                        <tr *ngFor = "let vendedor of listVendedores | filter:buscar | paginate:{itemsPerPage:10,currentPage:p}">
+                           
+        
+                             <td>{{vendedor.id_vendedor}}</td>  
+                            <td>{{vendedor.nombre}}</td>
+                            <td>{{vendedor.apellido}}</td>
+                            <td>{{vendedor.dni}}</td>
+                            <td>{{vendedor.domicilio}}</td>
+                            <td>{{vendedor.email}}</td>
+                            <td>{{vendedor.descripcion}}</td>
+                            <td>{{vendedor.adjunto}}</td>
+                            <td>{{vendedor.telefono}}</td>
+                            
+                            <td>
+                                <div *ngIf="vendedor.estado == 0; else loggedOut">
+                                    <span class="badge badge-danger">Inactivo</span>
+                                  </div>
+                                  
+                                  <ng-template #loggedOut>
+                                    <span class="badge badge-success">Activo</span>
+                                  </ng-template>
+                            </td>
+                            <td>
+                                 <div class="btn-group btn-group-sm" >
+                                 <button class="btn btn-danger" (click)="eliminarVendedor(vendedor.id_vendedor)"  ><i class="fas fa-trash"></i></button> <!-- eliminar -->
+                                <button  class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="editarVendedor(vendedor)"> <i class="fas fa-edit"></i> </button><!-- modificar -->
+                                <button class="btn btn-info"   data-toggle="modal" data-target="#myModal" (click)="verDatosGarante(vendedor)" ><i class="fas fa-eye"></i></button> <!-- ver mas -->
+                            </div>
+                            </td>
+        
+                           
+                        
+        
+        
+                        </tr>
+        
+                    </tbody>
+        
+                </table>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Vendedores</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form [formGroup]="formVendedor" (ngSubmit)="guardarVendedores()">
+        <div class="modal-body">
+
+                 <!-- <input formControlName='id_vendedor' type="text">  -->
+            
+                <div class="form-group">
+                    <input formControlName="nombre" placeholder="Ingrese en nombre" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input formControlName="apellido" placeholder="Ingrese el apellido" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input formControlName="dni" placeholder="Ingrese el dni" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input formControlName="domicilio" placeholder="Ingrese el domicilio" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input formControlName="email" placeholder="Ingrese el email" type="text" class="form-control">
+                </div>
+
+
+                <div class="form-group">
+                    <select name="" id="" formControlName="localidad" class="form-control" placeholder="">
+                        <option value="-1" disabled selected>Seleccione una localidad</option>
+                        <option  *ngFor="let fila of listVendedoresLoc" [value]="fila.id_localidad">
+                            {{fila.descripcion}}
+                        </option>
+                    </select>
+                </div>
+
+                
+                <div class="form-group">
+                    <input formControlName="adjunto" placeholder="Ingrese el adjunto " type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input formControlName="telefono" placeholder="Ingrese el telefono" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input formControlName="nom_garante" placeholder="Ingrese el nombre del garante" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input formControlName="ape_garante" placeholder="Ingrese el apellido del garante" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input formControlName="dni_garante" placeholder="Ingrese el DNI del garante" type="text" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <input formControlName="email_garante" placeholder="Ingrese el email del garante" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input formControlName="domicilio_garante" placeholder="Ingrese el domicilio del garante" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input formControlName="telefono_garante" placeholder="Ingrese el telefono del garante" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <select name="" id="" formControlName="estado" class="form-control" placeholder="Ingrese el estado">
+                        <option value="-1" disabled selected>Seleccione un estado</option>
+                        <option value="0" active selected>Inactivo</option>
+                        <option value="1" active selected>Activo</option>
+                    </select>
+                </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button [class]="class_button_sa">{{text_button}}</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Datos garante</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+            <ul class="list-group">
+                <li class="list-group-item"><b>Nombre garante: </b>{{nomg}}</li>
+                <li class="list-group-item"><b>Apellido garante: </b>{{apeg}}</li>
+                <li class="list-group-item"><b>Email garante: </b>{{emailg}}</li>
+                <li class="list-group-item"><b>DNI garante: </b>{{dnig}}</li>
+                <li class="list-group-item"><b>Domicilio garante: </b>{{domg}}</li>
+                <li class="list-group-item"><b>Telefono garante: </b>{{telg}}</li>
+                
+              </ul>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>

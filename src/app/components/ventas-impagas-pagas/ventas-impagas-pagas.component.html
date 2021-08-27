@@ -1,0 +1,175 @@
+
+<ol class="breadcrumb" style="background-color:#fbfbfb">
+    <li class="breadcrumb-item"><a routerLink="/ventas">Inicio</a></li>
+    <li class="breadcrumb-item"><a routerLink="#"><b>Planilla de seguimiento de ventas</b></a></li>
+</ol>
+
+<div class="row">
+
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                VEND. <b>{{nombre_ape_params}}</b>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input placeholder="Ingrese búsqueda" [(ngModel)]="buscar" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Planilla</th>
+                            <th>Vendedor</th>
+                            <th>Debe</th>
+                            <th>Pago</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                            <th>Operaciones</th>
+        
+                        </tr>
+                    </thead> 
+        
+                    <tbody>
+                        <tr *ngFor = "let venta_impaga_paga of listVentaImpagaPaga | filter:buscar | paginate:{itemsPerPage:15,currentPage:p}">
+                            <td>{{venta_impaga_paga.id_impaga_paga}}</td>
+                            <td><span class="badge badge-info">Planilla {{venta_impaga_paga.fecha_carga}}</span></td>
+                            <td>{{venta_impaga_paga.vendedor_descripcion}}</td>
+
+                            <!--<td><b class="text-danger">${{venta_impaga_paga.debe}}</b></td>-->
+                            <td>
+                                <div *ngIf="venta_impaga_paga.debe ; else ipi">
+                                    
+                                    <b class="text-danger">${{venta_impaga_paga.debe}}</b>
+                                  </div>
+                                  
+                                  <ng-template #ipi>
+                                    <b class="text-danger">$0.00</b>
+                                  </ng-template>
+                            </td>
+
+                            <!--<td><b class="text-success">${{venta_impaga_paga.pago}}</b></td>-->
+                            <td>
+                                <div *ngIf="venta_impaga_paga.pago; else ipp">
+                                    
+                                    <b class="text-success">${{venta_impaga_paga.pago}}</b>
+                                  </div>
+                                  
+                                  <ng-template #ipp>
+                                    <b class="text-success">$0.00</b>
+                                  </ng-template>
+                            </td>
+
+
+                            <td><b class="text-primary">${{venta_impaga_paga.total}}</b></td>
+                            <td>
+                                <div *ngIf="venta_impaga_paga.estado == 0; else loggedOut">
+                                    <span class="badge badge-danger">Pagos pendientes</span>
+                                  </div>
+                                  
+                                  <ng-template #loggedOut>
+                                    <span class="badge badge-success">Pagos finalizados</span>
+                                  </ng-template>
+                            </td>
+                            
+                            <td>
+                                <div class="btn-group btn-group-sm" >
+                                    <!--
+                                        <button class="btn btn-danger" (click)="eliminarVentaImpagaPaga(venta_impaga_paga.id_impaga_paga)"  ><i class="fas fa-trash"></i></button>
+                                    <button  class="btn btn-primary" (click)="editarVentaImpagaPaga(venta_impaga_paga)"> <i class="fas fa-edit"></i> </button>--> 
+                                    <button data-toggle="modal" data-target="#exampleModal_vip" (click)="verDetalle(venta_impaga_paga.id_impaga_paga)" class="btn btn-outline-primary"><i class="fas fa-eye"></i> Ver detalle</button>
+                                    <!--<button class="btn btn-info" (click)="verDetalle2(venta_impaga_paga.id_impaga_paga)"></button>-->
+                                   
+                               </div>
+                            </td>
+        
+                        </tr>
+                    </tbody>
+        
+                </table>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="col-sm-4">
+        
+        <div class="card">
+            <div class="card-header">Formulario de ventas impagas y pagas</div>
+            <div class="card-body">
+
+
+                <form [formGroup]="formVentaImpagaPaga" (ngSubmit)= "guardarVentaImpagaPaga()">
+                    <input formControlName='id_impaga_paga' class="form-control" type="text" readonly>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input formControlName="fecha_carga" class="form-control" placeholder="dd-mm-yyyy" name="dp" ngbDatepicker #d="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary calendar" (click)="d.toggle()" type="button">
+                                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-calendar-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zM8.5 8.5a.5.5 0 0 0-1 0V10H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V11H10a.5.5 0 0 0 0-1H8.5V8.5z"/>
+                                      </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input formControlName="vendedor" placeholder="Ingrese el vendedor" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input formControlName="total" placeholder="Ingrese el total" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input formControlName="debe" placeholder="Ingrese el monto que se debe" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <select name="" id="" formControlName="estado" class="form-control" placeholder="Ingrese el estado">
+                            <option value="-1" disabled selected>Seleccione un estado</option>
+                            <option value="0" active selected>Inactivo</option>
+                            <option value="1" active selected>Activo</option>
+                        </select>
+                    </div>
+
+                    
+                    
+
+                    
+                    
+                    <button class="btn btn-success btn-sm">Guardar venta</button>
+                    <button type="button" class="btn btn-outline-dark btn-sm" (click)="resetearformVentaImpagaPaga()"><i class="fas fa-redo-alt"></i></button>
+                </form>
+
+
+            </div>
+        </div>
+
+    </div>-->
+
+</div>
+
+
+
+<div class="modal fade" id="exampleModal_vip" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Seguimiento de ventas</h5>
+        </div>
+        <div class="modal-body">
+            <app-venta-detalle (textoEmitido)="actualizar($event)" [id_vpi]="id_vpi" [vendedor]="id_vendedor_params"></app-venta-detalle>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="obtenerVentaImpagaPaga(id_vendedor_params)">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>

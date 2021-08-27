@@ -1,0 +1,96 @@
+<ol class="breadcrumb" style="background-color:#fbfbfb">
+    <li class="breadcrumb-item"><a routerLink="/ventas">Inicio</a></li>
+    <li class="breadcrumb-item"><a routerLink="#">Gastos</a></li>
+</ol>
+<div class="row">
+
+    <div class="col-sm-8">
+        <div class="card">
+            <div class="card-header">
+                Grilla gastos
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input placeholder="Ingrese búsqueda" [(ngModel)]="buscar" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped">
+
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Descripcion</th>
+                            <th>Importe</th>
+                            <th>Categoria</th>
+                            <th>Operaciones</th>
+                        </tr>
+                    </thead>
+        
+                    <tbody>
+                        <tr *ngFor = "let gasto of listGastos | filter:buscar | paginate:{itemsPerPage:10,currentPage:p}">
+                            <td>{{gasto.id_gasto}}</td>
+                            <td>{{gasto.descripcion}}</td>
+                            <td>{{gasto.importe}}</td>
+                            <td>{{gasto.descripcion_categoria}}</td>
+                            <td>
+                                <div class="btn-group btn-group-sm" >
+                                    <button class="btn btn-danger" (click)="eliminarGasto(gasto.id_gasto)"  ><i class="fas fa-trash"></i></button><!--eliminar -->
+                                    <button  class="btn btn-primary" (click)="editarGasto(gasto)"> <i class="fas fa-edit"></i> </button><!-- modificar -->
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        
+        <div class="card">
+            <div class="card-header">Formulario de gastos</div>
+            <div class="card-body">
+
+
+                <form [formGroup]="formGasto" (ngSubmit)= "guardarGasto()">
+                    <div class="modal-body">
+
+                            <input formControlName="id_gasto" class="form-control" type="hidden" readonly>
+
+                        <div class="form-group">
+                            <input formControlName="descripcion" placeholder="Ingrese la descripcion" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <input formControlName="importe" placeholder="Ingrese el importe" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <select name="" id="" formControlName="categoria" class="form-control">
+                                <option value="0" disabled selected>Seleccione una categoria</option>
+                                <option  *ngFor="let fila of listCatGastos" [value]="fila.id_categoria_gasto">
+                                    {{fila.descripcion}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="btn-group">
+                            <button [class]="class_button_sa">{{text_button}}</button>
+                            <button [style]="class_display" type="button" class="btn btn-danger btn-sm" (click)="resetearformGasto()">Cancelar</button>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>

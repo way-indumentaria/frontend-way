@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <img src="assets/logo.png" width="128" height="40" class="d-inline-block align-top" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarColor02">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown" *ngIf="autServ.verificarUsuarioLogueado()">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Menú principal</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" routerLink="/gastos">Gastos</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" routerLink="/productos">Productos</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" routerLink="/vendedores">Vendedores</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" routerLink="/ventas">Ventas</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown" *ngIf="autServ.verificarUsuarioLogueado()">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuración</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" routerLink="/categoriaGastos">Categoría gastos</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" routerLink="/categorias">Categoría de productos</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" routerLink="/localidades">Localidades</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" routerLink="/provincias">Provincias</a>
+          </div>
+        </li>
+      </ul>
+      
+
+      <ng-container >
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+         
+            <a class="nav-link" routerLink="/registro" style="cursor: pointer" *ngIf ="autServ.verificarUsuarioLogueado()" >Registrar usuario</a>
+        </li>
+        <li class="nav-item active" *ngIf ="!autServ.verificarUsuarioLogueado(); else cierresesion">
+         
+          <a class="nav-link"  routerLink="/ingreso" style="cursor: pointer" >login</a>
+      </li>
+      </ul>
+    </ng-container>
+      <ng-template #cierresesion>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+           
+              <a class="nav-link" style="cursor: pointer" (click)=autServ.cerrarSesion()>Cerrar sesion</a>
+          </li>
+          
+        </ul>
+      </ng-template>
+    
+
+
+      <ng-content></ng-content>
+    </div>
+  </nav>

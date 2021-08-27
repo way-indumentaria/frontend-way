@@ -1,0 +1,162 @@
+<div class="row">
+    <div class="col-md-5" style="margin-right: 0px;padding-right: 0px;">
+        <div class="card border-danger mb-3">
+            <div class="card-header">
+               
+                <ul class="nav nav-pills card-header-pills">
+                    <li class="nav-item mr-sm-2">
+                        <b class="text-danger">Ventas impagas</b>
+                    </li>
+                    <li class="nav-item ml-auto">
+                        <a (click)="apagarBoton(0)" data-toggle="modal" data-target="#myModalEnviar" [ngClass]='{disabled: disabled}'  class="btn btn-outline-info btn-sm">Enviar a stock</a>
+                        <a (click)="apagarBoton(1)" data-toggle="modal" data-target="#myModalEnviar" [ngClass]='{disabled: disabled}' class="btn btn-outline-warning btn-sm">Enviar a nueva venta</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <input type="hidden" [(ngModel)]="input_id_venta_detalle">
+                <input type="hidden" [(ngModel)]="input_id_producto">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input placeholder="Ingrese búsqueda" [(ngModel)]="buscar1" type="text" class="form-control form-control-sm">
+                        </div>
+                    </div>
+                    <div class="col-md-3 ml-auto">
+                        <span class="badge badge-danger" style="font-size: 12px;">T. IMPAGAS: ${{total_impagas}}</span>
+                    </div>
+                </div>
+                <table class="table table-striped table-sm" >
+
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>id</th>
+                            <th>Prod.</th>
+                            <th>Cant.</th>
+                            <th>Imp.</th>
+                            <th>F. venta</th>
+                            <th>Aut.</th>
+                        </tr>
+                    </thead> 
+        
+                    <tbody>
+                        <tr *ngFor = "let venta of lista_impagas | filter:buscar1 | paginate:{itemsPerPage:7,currentPage:p1}">
+                            <td>
+                                
+                                <div class="custom-control custom-radio">
+                                    <input (change)="selectedRow(venta.id_venta_detalle,venta.producto,0)" type="radio" id="imp_{{venta.id_venta_detalle}}" value="imp_{{venta.id_venta_detalle}}" name="imp_{{venta.id_venta}}" class="form-check-input">
+                                </div>
+                            </td>
+                            <td><span class="badge badge-warning">{{venta.codigo_producto}}</span></td>
+                            <td>{{venta.descripcion_producto}}</td>
+                            <td><span class="badge badge-info">{{venta.cantidad}}</span></td>
+                            <td>${{venta.importe}}</td>
+                            <td>{{venta.fecha_venta}}</td>
+                            <td>
+                                <div class="custom-control custom-switch">
+                                    <input [checked]="venta.estado_confirmacion" (change)="confirmarVenta(venta.id_venta_detalle)" type="checkbox" class="custom-control-input" [id]="venta.id_venta_detalle" >
+                                    <label class="custom-control-label" [for]="venta.id_venta_detalle"></label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+        
+                </table>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <pagination-controls (pageChange)="p1 = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2" style="padding-top:50px;padding-left: 0px;padding-right: 0px;">
+        <div class="row" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;">
+            <div  class="col text-center">
+                <button (click)="enviarImpagasPagas(1)" [ngClass]='{disabled:display_buttons_pagas}' type="button" class="btn btn-success"><i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <div class="row p-5" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;">
+            <div class="col text-center">
+                <button (click)="enviarImpagasPagas(0)" [ngClass]='{disabled:display_buttons_impagas}' type="button" class="btn btn-danger"><i class="fas fa-arrow-left"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5" style="margin-left: 0px;padding-left: 0px;">
+        <div class="card border-success mb-3">
+            <div class="card-header">
+                <b class="text-success">Ventas pagas</b>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input placeholder="Ingrese búsqueda" [(ngModel)]="buscar2" type="text" class="form-control form-control-sm">
+                        </div>
+                    </div>
+                    <div class="col-md-3 ml-auto">
+                        <span class="badge badge-success" style="font-size: 12px;">T. PAGAS: ${{total_pagas}}</span>&nbsp;
+                    </div>
+                </div>
+                <table class="table table-striped table-sm">
+
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>id</th>
+                            <th>Prod.</th>
+                            <th>Cant.</th>
+                            <th>Imp.</th>
+                            <th>F. venta</th>
+                        </tr>
+                    </thead> 
+        
+                    <tbody>
+                        <tr *ngFor = "let venta of lista_pagas | filter:buscar2 | paginate:{itemsPerPage:7,currentPage:p2}">
+                            <td>
+                                <div class="custom-control custom-radio">
+                                    <input (change)="selectedRow(venta.id_venta_detalle,venta.producto,1)" type="radio" id="imp_{{venta.id_venta_detalle}}"  name="imp_{{venta.id_venta}}" class="form-check-input">
+                                </div>
+                            </td>
+                            <td><span class="badge badge-warning">{{venta.codigo_producto}}</span></td>
+                            <td>{{venta.descripcion_producto}}</td>
+                            <td><span class="badge badge-info">{{venta.cantidad}}</span></td>
+                            <td>${{venta.importe}}</td>
+                            <td>{{venta.fecha_venta}}</td>
+                        </tr>
+                    </tbody>
+        
+                </table>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <pagination-controls (pageChange)="p2 = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="myModalEnviar" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4>Atención</h4>
+        </div>
+        <div class="modal-body">
+          <p>¿Está seguro que desea llevar a cabo esta acción?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger btn-sm" (click)="cerrarModal()">Cancelar</button>
+          <button [style]="display0" type="button" class="btn btn-outline-info btn-sm"  (click)="enviarStockVenta(0);cerrarModal()">Enviar a stock</button>
+          <button [style]="display1" type="button" class="btn btn-outline-warning btn-sm" (click)="enviarStockVenta(1);cerrarModal()">Enviar a nueva venta</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
