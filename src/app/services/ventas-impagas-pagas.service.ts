@@ -11,24 +11,24 @@ export class VentasImpagasPagasService {
 
   getVentaImpagaPaga(id_vendedor:number){
 
-    return this.http.get<IVentaImpagaPaga[]>('https://backend-way-indumentaria.herokuapp.com/venta_impaga_paga/'+id_vendedor);
+    return this.http.get<IVentaImpagaPaga[]>('https://backend-way.herokuapp.com/venta_impaga_paga/'+id_vendedor);
   }
 
   saveVentaImpagaPaga(unaVentaImpagaPaga:IVentaImpagaPaga){  
     unaVentaImpagaPaga.fecha_carga=unaVentaImpagaPaga.fecha_carga.year+'-'+unaVentaImpagaPaga.fecha_carga.month+'-'+unaVentaImpagaPaga.fecha_carga.day;
-    return this.http.post('https://backend-way-indumentaria.herokuapp.com/venta_impaga_paga', unaVentaImpagaPaga);
+    return this.http.post('https://backend-way.herokuapp.com/venta_impaga_paga', unaVentaImpagaPaga);
   }
 
   updateVentaImpagaPaga(unaVentaImpagaPaga:IVentaImpagaPaga){
 
     let id:number = unaVentaImpagaPaga.id_impaga_paga;
     unaVentaImpagaPaga.fecha_carga=unaVentaImpagaPaga.fecha_carga.year+'-'+unaVentaImpagaPaga.fecha_carga.month+'-'+unaVentaImpagaPaga.fecha_carga.day;
-    return this.http.put('https://backend-way-indumentaria.herokuapp.com/venta_impaga_paga/'+id,unaVentaImpagaPaga);
+    return this.http.put('https://backend-way.herokuapp.com/venta_impaga_paga/'+id,unaVentaImpagaPaga);
   }
 
   
   deleteVentaImpagaPaga(id:number){
-    return this.http.delete('https://backend-way-indumentaria.herokuapp.com/venta_impaga_paga/' +id);
+    return this.http.delete('https://backend-way.herokuapp.com/venta_impaga_paga/' +id);
   }
 
 }

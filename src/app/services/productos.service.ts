@@ -13,25 +13,25 @@ export class ProductosService {
   }
   getProductos()
    {
-      return this.http.get<IProducto[]>('https://backend-way-indumentaria.herokuapp.com/producto');
+      return this.http.get<IProducto[]>('https://backend-way.herokuapp.com/producto');
    }
 
   saveProducto(unProducto:IProducto)
   {
     unProducto.fecha_carga=unProducto.fecha_carga.year+'-'+unProducto.fecha_carga.month+'-'+unProducto.fecha_carga.day;
-    return this.http.post('https://backend-way-indumentaria.herokuapp.com/producto',unProducto);
+    return this.http.post('https://backend-way.herokuapp.com/producto',unProducto);
   }
 
   updateProducto(unProducto:IProducto)
   {
     let id:number = unProducto.id_producto;
     unProducto.fecha_carga=unProducto.fecha_carga.year+'-'+unProducto.fecha_carga.month+'-'+unProducto.fecha_carga.day;
-    return this.http.put('https://backend-way-indumentaria.herokuapp.com/producto/'+id,unProducto);
+    return this.http.put('https://backend-way.herokuapp.com/producto/'+id,unProducto);
   }
 
   deleteProducto(id:number)
   {
-    return this.http.delete('https://backend-way-indumentaria.herokuapp.com/producto/'+id);
+    return this.http.delete('https://backend-way.herokuapp.com/producto/'+id);
   }
 
 }

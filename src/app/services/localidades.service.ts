@@ -14,23 +14,23 @@ export class LocalidadesService {
 
   getLocalidades()
    {
-      return this.http.get<ILocalidad[]>('https://backend-way-indumentaria.herokuapp.com/localidades');
+      return this.http.get<ILocalidad[]>('https://backend-way.herokuapp.com/localidades');
    }
 
    saveLocalidad(unaLocalidad:ILocalidad)
    {
-      return this.http.post('https://backend-way-indumentaria.herokuapp.com/localidades',unaLocalidad);
+      return this.http.post('https://backend-way.herokuapp.com/localidades',unaLocalidad);
    }
 
    updateLocalidad(unaLocalidad:ILocalidad)
    {
       let id:number = unaLocalidad.id_localidad;
 
-      return this.http.put('https://backend-way-indumentaria.herokuapp.com/localidades/'+id,unaLocalidad);
+      return this.http.put('https://backend-way.herokuapp.com/localidades/'+id,unaLocalidad);
    }
 
    deleteLocalidad(id:number)
    {
-      return this.http.delete('https://backend-way-indumentaria.herokuapp.com/localidades/'+id);
+      return this.http.delete('https://backend-way.herokuapp.com/localidades/'+id);
    }
 }

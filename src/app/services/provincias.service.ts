@@ -13,13 +13,13 @@ export class ProvinciasService {
 
    getProvincias(){
 
-    return this.http.get<IProvincia[]>('https://backend-way-indumentaria.herokuapp.com/provincias');
+    return this.http.get<IProvincia[]>('https://backend-way.herokuapp.com/provincias');
 
    }
 
    saveProvincias(unaProvincia:IProvincia){
 
-    return this.http.post('https://backend-way-indumentaria.herokuapp.com/provincias', unaProvincia);
+    return this.http.post('https://backend-way.herokuapp.com/provincias', unaProvincia);
     
 
    }
@@ -28,13 +28,13 @@ export class ProvinciasService {
 
     let id:number = unaProvincia.id_provincia;
 
-    return this.http.put('https://backend-way-indumentaria.herokuapp.com/provincias/'+id,unaProvincia);
+    return this.http.put('https://backend-way.herokuapp.com/provincias/'+id,unaProvincia);
 
 
    }
 
    deleteProvincia(id:number){
 
-    return this.http.delete('https://backend-way-indumentaria.herokuapp.com/provincias/' +id);
+    return this.http.delete('https://backend-way.herokuapp.com/provincias/' +id);
    }
 }

@@ -10,12 +10,12 @@ export class CategoriasService {
   constructor(private http:HttpClient) { }
   getCategoria(){
 
-    return this.http.get<ICategoria[]>('https://backend-way-indumentaria.herokuapp.com/categoria');
+    return this.http.get<ICategoria[]>('https://backend-way.herokuapp.com/categoria');
   }
 
   saveCategoria(unaCategoria:ICategoria){
 
-    return this.http.post('https://backend-way-indumentaria.herokuapp.com/categoria', unaCategoria);
+    return this.http.post('https://backend-way.herokuapp.com/categoria', unaCategoria);
     
 
    }
@@ -23,13 +23,13 @@ export class CategoriasService {
 
     let id:number = unaCategoria.id_categoria;
 
-    return this.http.put('https://backend-way-indumentaria.herokuapp.com/categoria/'+id,unaCategoria);
+    return this.http.put('https://backend-way.herokuapp.com/categoria/'+id,unaCategoria);
 
 
    }
    deleteCategoria(id:number){
 
-    return this.http.delete('https://backend-way-indumentaria.herokuapp.com/categoria/' +id);
+    return this.http.delete('https://backend-way.herokuapp.com/categoria/' +id);
    }
 
 
