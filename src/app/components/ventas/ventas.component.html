@@ -94,8 +94,9 @@
                                     <th>Cod. Prod.</th>
                                     <th style="width: 20%;">Producto</th>
                                     <th>Cant.</th>
-                                    <th>Imp.Uni.</th>
-                                    <th>Imp. Total</th>
+                                    <th>Imp.Uni.(costo)</th>
+                                    <th>Imp.Uni.(venta)</th>
+                                    <!--<th>Imp. Total</th>-->
                                     <th>Fecha de Venta</th>
                                     <!--<th>Estado</th>
                                     <th>F. de pago</th>-->
@@ -116,15 +117,17 @@
                                     <td>
                                         <span class="badge badge-info">{{venta.cantidad}}</span>
                                     </td>
-                                   
+                                    <td>${{venta.precio_costo}}</td>
                                     <td>${{venta.importe_unitario}}</td>
-                                    <td>${{venta.importe}}</td>
+                                    <!--<td>${{venta.importe}}</td>-->
+
+
                                     <td>{{venta.fecha_venta_formateada}}</td>
                                     <!--<td>{{venta.descuento_aplicado}}</td>-->
                                    
                                     <input [value]="venta.producto" id="i_{{venta.id_venta}}_input_producto" type="hidden">
                                     <input [value]="venta.fecha_venta_origin" id="i_{{venta.id_venta}}_input_fecha_venta" type="hidden">
-                                    <input [value]="venta.importe_unitario" id="i_{{venta.id_venta}}_input_precio_unitario" type="hidden">
+                                    <input [value]="venta.precio_costo" id="i_{{venta.id_venta}}_input_precio_unitario" type="hidden">
                                     
                                     <td>
                                         <div class="btn-group btn-group-sm"  aria-label="Basic example">
