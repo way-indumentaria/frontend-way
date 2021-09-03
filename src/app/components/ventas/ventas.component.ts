@@ -49,6 +49,8 @@ export class VentasComponent implements OnInit {
   p:number = 1;
   buscar:any;
 
+  buscarVendedor:any;
+
   toastclass:string = '';
   toastmensaje:string = '';
 
