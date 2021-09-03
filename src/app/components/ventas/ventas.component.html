@@ -15,7 +15,7 @@
                 <br>
                 <ul class="list-group">
 
-                    <ng-container *ngFor="let vendedor of listVendVentas | filter:buscarVenta; let index = index;">
+                    <ng-container *ngFor="let vendedor of listVendVentas | filter:buscarVendedor; let index = index;">
                         <ng-container *ngIf="vendedor.estado == 1">
                             <li style="cursor: pointer;"   [ngClass]="{'active': index === activePillIndex}" (click)="selectPill(index,vendedor.id_vendedor,vendedor.nombre,vendedor.apellido)"  class="list-group-item list-group-item-action" >
                        
