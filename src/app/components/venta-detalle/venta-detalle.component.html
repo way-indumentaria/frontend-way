@@ -34,7 +34,7 @@
                             <th>id</th>
                             <th>Prod.</th>
                             <th>Cant.</th>
-                            <th>Imp.</th>
+                            <th>P.Costo</th>
                             <th>F. venta</th>
                             <th>Aut.</th>
                         </tr>
@@ -51,7 +51,8 @@
                             <td><span class="badge badge-warning">{{venta.codigo_producto}}</span></td>
                             <td>{{venta.descripcion_producto}}</td>
                             <td><span class="badge badge-info">{{venta.cantidad}}</span></td>
-                            <td>${{venta.importe}}</td>
+                            <!--<td>${{venta.importe}}</td>-->
+                            <td>${{venta.precio_costo}}</td>
                             <td>{{venta.fecha_venta}}</td>
                             <td>
                                 <div class="custom-control custom-switch">
@@ -108,7 +109,7 @@
                             <th>id</th>
                             <th>Prod.</th>
                             <th>Cant.</th>
-                            <th>Imp.</th>
+                            <th>P.Costo</th>
                             <th>F. venta</th>
                         </tr>
                     </thead> 
@@ -123,7 +124,8 @@
                             <td><span class="badge badge-warning">{{venta.codigo_producto}}</span></td>
                             <td>{{venta.descripcion_producto}}</td>
                             <td><span class="badge badge-info">{{venta.cantidad}}</span></td>
-                            <td>${{venta.importe}}</td>
+                            <!--<td>${{venta.importe}}</td>-->
+                            <td>${{venta.precio_costo}}</td>
                             <td>{{venta.fecha_venta}}</td>
                         </tr>
                     </tbody>
