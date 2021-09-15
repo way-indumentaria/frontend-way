@@ -163,7 +163,7 @@ export class VentasComponent implements OnInit {
   }
 
   extractData(data:IVenta[]):TableRow[] {
-    return data.map((row,index) => [index+1,row.codigo_producto,row.producto_descripcion,row.cantidad,row.precio_costo,row.importe_unitario,/*row.importe,*/row.fecha_venta_formateada,' ',' '])
+    return data.map((row,index) => [index+1,row.codigo_producto,row.producto_descripcion,row.cantidad,row.precio_costo,row.precio_venta,/*row.importe,*/row.fecha_venta_formateada,' ',' '])
   }
   /** Finalizacion de configuracion de PDF */
 
