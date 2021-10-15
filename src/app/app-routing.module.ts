@@ -13,7 +13,7 @@ import { VentasImpagasPagasComponent } from "./components/ventas-impagas-pagas/v
 import { RegistroComponent } from "./components/registro/registro.component";
 import { IngresoComponent } from "./components/ingreso/ingreso.component";
 import { AuthGuard } from "./auth.guard";
-
+import { EstadisticasComponent } from './components/estadisticas/estadisticas.component'
 
 const routes: Routes = [
   {
@@ -52,6 +52,9 @@ const routes: Routes = [
   },
   {
     path:"ingreso",component:IngresoComponent
+  },
+  {
+    path:"estadisticas",component:EstadisticasComponent
   },
   {
     path:'', redirectTo:'/ingreso', pathMatch:'full'
