@@ -27,8 +27,9 @@ import { NgxPaginationModule } from "ngx-pagination";
 import { VentaDetalleComponent } from './components/venta-detalle/venta-detalle.component';
 
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
-import pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
-
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import { EstadisticasComponent } from './components/estadisticas/estadisticas.component'; // fonts provided for pdfmake
+import { ChartModule } from 'angular-highcharts'
 // Set the fonts to use
 PdfMakeWrapper.setFonts(pdfFonts);
 
@@ -47,7 +48,8 @@ PdfMakeWrapper.setFonts(pdfFonts);
     CategoriasComponent,
     RegistroComponent,
     IngresoComponent,
-    VentaDetalleComponent
+    VentaDetalleComponent,
+    EstadisticasComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +59,8 @@ PdfMakeWrapper.setFonts(pdfFonts);
     FormsModule,
     NgbModule,
     Ng2SearchPipeModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ChartModule
   ],
   providers: [
     AuthGuard,
