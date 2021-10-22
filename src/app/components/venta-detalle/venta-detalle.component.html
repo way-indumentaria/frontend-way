@@ -53,7 +53,7 @@
                             <td><span class="badge badge-info">{{venta.cantidad}}</span></td>
                             <!--<td>${{venta.importe}}</td>-->
                             <td>${{venta.precio_costo}}</td>
-                            <td>{{venta.fecha_venta}}</td>
+                            <td>{{venta.fecha_planilla}}</td>
                             <td>
                                 <div class="custom-control custom-switch">
                                     <input [checked]="venta.estado_confirmacion" (change)="confirmarVenta(venta.id_venta_detalle)" type="checkbox" class="custom-control-input" [id]="venta.id_venta_detalle" >
@@ -126,7 +126,7 @@
                             <td><span class="badge badge-info">{{venta.cantidad}}</span></td>
                             <!--<td>${{venta.importe}}</td>-->
                             <td>${{venta.precio_costo}}</td>
-                            <td>{{venta.fecha_venta}}</td>
+                            <td>{{venta.fecha_planilla}}</td>
                         </tr>
                     </tbody>
         

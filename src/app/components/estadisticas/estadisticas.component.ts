@@ -124,7 +124,7 @@ export class EstadisticasComponent implements OnInit {
       await this.estadisticaServ.getVentasCantidadPorVendedor(fdesde,fhasta).subscribe(
         resultado => {
             this.data = resultado;
-            this.chart5 = this.init(this.data[0],this.data[1],'Cantidad de Ventas Pagas por vendedor','Cantidad de ventas',"VDOR: <b>{series.name}</b> / CANT: <b>{point.y}</b>");
+            this.chart5 = this.init(this.data[0],this.data[1],'Cantidad de Prendas por vendedor','Cantidad de prendas',"VDOR: <b>{series.name}</b> / CANT: <b>{point.y}</b>");
         }
       )
   } 
