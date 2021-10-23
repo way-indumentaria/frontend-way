@@ -37,7 +37,7 @@
                     <tbody>
                         <tr *ngFor = "let venta_impaga_paga of listVentaImpagaPaga | filter:buscar | paginate:{itemsPerPage:15,currentPage:p}">
                             <td>{{venta_impaga_paga.id_impaga_paga}}</td>
-                            <td><span class="badge badge-info">Planilla {{venta_impaga_paga.fecha_carga}}</span></td>
+                            <td><span class="badge badge-info">Planilla {{venta_impaga_paga.fecha_venta}}</span></td>
                             <td>{{venta_impaga_paga.vendedor_descripcion}}</td>
 
                             <!--<td><b class="text-danger">${{venta_impaga_paga.debe}}</b></td>-->
