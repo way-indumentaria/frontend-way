@@ -256,7 +256,7 @@
             <div class="row">
                 <div class="col-6">
                     <!--<img class="img-fluid" [src]="imagenes_url" alt="">-->
-                    <div *ngIf="imagenes_url; else imgdefecto1">
+                    <div *ngIf="imagenes_url==''; else imgdefecto1">
                         <img  [src]="imagenes_url" class="img-fluid rounded-circle" />
                     </div>
                     <ng-template #imgdefecto1>

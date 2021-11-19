@@ -23,15 +23,17 @@
                        
                                 <span class="pull-left ">
 
-                                    <ng-template *ngIf="vendedor.imagen_perfil; else imgdefecto">
+                                    <div *ngIf="vendedor.imagen_perfil; else imgdefecto">
                                         <img  [src]="vendedor.imagen_perfil" style="width: 20%;"  class="img-fluid rounded-circle" />
-                                    </ng-template>
+                                        {{vendedor.nombre}}, {{vendedor.apellido}}
+                                    </div>
                                     <ng-template #imgdefecto>
                                         <img  src="https://uybor.uz/borless/uybor/img/user-images/no-avatar.png" style="width: 20%;"  class="img-fluid rounded-circle" />
+                                        {{vendedor.nombre}}, {{vendedor.apellido}}
                                     </ng-template>
                                
                                 </span>
-                                {{vendedor.nombre}}, {{vendedor.apellido}}
+                               
                             </li>
                         </ng-container>
                     </ng-container>
