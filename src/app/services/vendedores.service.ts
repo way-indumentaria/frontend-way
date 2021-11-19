@@ -19,7 +19,7 @@ export class VendedoresService {
    {
         const fd = new FormData();
         fd.append('img-vendedor',files[0]);
-        return this.http.put('http://localhost:3000/vendedores-img/'+id,fd);
+        return this.http.put('https://backend-way.herokuapp.com/vendedores-img/'+id,fd);
    }
 
    saveVendedores(unVendedor:IVendedor,files:FileList){
