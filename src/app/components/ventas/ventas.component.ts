@@ -67,6 +67,8 @@ export class VentasComponent implements OnInit {
 
   cantidad_prendas2:number = 0;
 
+  mifoto:string;
+
   @ViewChildren('inputs_i') inputs_i: QueryList<ElementRef>;
   @ViewChildren('inputs_d') inputs_d: QueryList<ElementRef>;
 
@@ -274,6 +276,8 @@ export class VentasComponent implements OnInit {
         this.nombre_ape = this.listVendVentas[0].nombre.toUpperCase()+', '+this.listVendVentas[0].apellido.toUpperCase();
         this.buscarVenta= 'v_'+this.listVendVentas[0].id_vendedor;
 
+        this.mifoto = this.listVendVentas[0].imagen_perfil;
+        
         this.obtenerTotalPagaImpaga(this.listVendVentas[0].id_vendedor);
 
         this.cantidad_vendedores = this.listVendVentas.length;
@@ -339,12 +343,14 @@ editarVenta(venta:IVenta){
   
 
 
-   public selectPill(index:number,id_vendedor:number,nombre:string,apellido:string) {
+   public selectPill(index:number,id_vendedor:number,nombre:string,apellido:string, imagen_perfi:string) {
      this.activePillIndex = index;
      this.buscarVenta = 'v_'+id_vendedor;
      this.formVenta.get('vendedor').setValue(id_vendedor);
      this.idVendedor = id_vendedor;
      this.nombre_ape = nombre.toUpperCase()+', '+apellido.toUpperCase();
+
+     this.mifoto = imagen_perfi;
 
      this.obtenerTotalPagaImpaga(id_vendedor);
      this.cantidadProductosPorVendedor();

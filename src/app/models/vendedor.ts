@@ -18,4 +18,6 @@ export interface IVendedor{
     telefono_garante:string;
     estado:number;
     id_localidad:number;
+    imagen_perfil:string;
+    public_id:string;
 }

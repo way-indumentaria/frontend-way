@@ -5,6 +5,11 @@ import { LocalidadesService } from "../../services/localidades.service";
 import { ILocalidad } from 'src/app/models/localidad';
 import { IVendedor } from 'src/app/models/vendedor';
 
+export interface IHtmlInputEvent{
+  target:HTMLInputElement & EventTarget
+}
+
+
 @Component({
   selector: 'app-vendedores',
   templateUrl: './vendedores.component.html',
@@ -14,6 +19,7 @@ export class VendedoresComponent implements OnInit {
 
   listVendedores = [];
   formVendedor: FormGroup;
+  formVendedorImagen: FormGroup;
   listVendedoresLoc = [];
   nomg: string="";
   apeg: string="";
@@ -28,7 +34,19 @@ export class VendedoresComponent implements OnInit {
   p:number = 1;
   buscar:any;
 
+  imagenes_url:string | ArrayBuffer = '';
+  archivos:FileList;
+  archivos2:FileList;
+
+  id_vendedor_img:number = null;
+  bloque_imagen:number = 1;
+  mensaje_upload:string = ''
+
   constructor(private vendedoresServ:VendedoresService, private fb: FormBuilder, private vendedorLocServ:LocalidadesService ) {
+
+    this.formVendedorImagen = this.fb.group({
+      archivos2:[null]
+    })
 
     this.formVendedor = this.fb.group({
       
@@ -48,7 +66,11 @@ export class VendedoresComponent implements OnInit {
       dni_garante:[''],
       domicilio_garante:[''],
       telefono_garante:[''],
-      estado:[1]
+      estado:[1],
+      archivos:[null],
+      
+      //imagen vendedor
+      imagen_perfil:['']
 
     })
 
@@ -85,7 +107,7 @@ export class VendedoresComponent implements OnInit {
 
       }else{
         // si no existe lo guarda
-        this.vendedoresServ.saveVendedores(this.formVendedor.value).subscribe(
+        this.vendedoresServ.saveVendedores(this.formVendedor.value,this.archivos).subscribe(
           resultado => {
             console.log(resultado);
             this.obtenerVendedores();//se refresca la grilla
@@ -130,7 +152,8 @@ export class VendedoresComponent implements OnInit {
       domicilio_garante:vendedor.domicilio_garante,
       telefono_garante:vendedor.telefono_garante,
       estado:vendedor.estado,
-
+      archivos:'',
+      imagen_perfil:''
      });
     // console.log(vendedor);
   }
@@ -169,6 +192,69 @@ export class VendedoresComponent implements OnInit {
     this.formVendedor.reset();
     this.text_button = 'Guardar';
     this.class_button_sa = 'btn btn-success';
+  }
+
+  mostrarImagenSeleccionada(evento:IHtmlInputEvent)
+  {
+
+    this.imagenes_url = '';
+
+    this.archivos = evento.target.files;
+
+        const  reader = new FileReader();
+
+        //se hace lectura de los archivos
+        reader.readAsDataURL(this.archivos[0]);
+
+        reader.onload = () => {
+          this.imagenes_url = reader.result;
+        }
+
+      
+    
+  }
+
+  mostrarImagenSeleccionada2(evento:IHtmlInputEvent)
+  {
+
+    this.imagenes_url = '';
+
+    this.archivos2 = evento.target.files;
+
+        const  reader = new FileReader();
+
+        //se hace lectura de los archivos
+        reader.readAsDataURL(this.archivos2[0]);
+
+        reader.onload = () => {
+          this.imagenes_url = reader.result;
+        }
+
+      
+    
+  }
+
+  actualizar_imagen()
+  {
+
+      this.vendedoresServ.actualizar_imagen(this.id_vendedor_img,this.archivos2).subscribe( 
+      (resultado) => {
+        this.mensaje_upload = 'Imagen subida exitosamente!'
+        this.obtenerVendedores()
+        
+      }, error => {
+          console.log(error)
+   
+      })
+      
+      
+   
+  }
+
+  verImagenPerfil(imagen_perfil,id){
+    this.imagenes_url = String(imagen_perfil);
+    this.id_vendedor_img = id;
+    this.mensaje_upload = ''
   }
 
 }
