@@ -23,11 +23,11 @@
                        
                                 <span class="pull-left ">
 
-                                    <div *ngIf="vendedor.imagen_perfil; else imgdefecto">
-                                        <img  [src]="vendedor.imagen_perfil" style="width: 20%;"  class="img-reponsive rounded-circle" />
-                                    </div>
+                                    <ng-template *ngIf="vendedor.imagen_perfil; else imgdefecto">
+                                        <img  [src]="vendedor.imagen_perfil" style="width: 20%;"  class="img-fluid rounded-circle" />
+                                    </ng-template>
                                     <ng-template #imgdefecto>
-                                        <img  src="https://uybor.uz/borless/uybor/img/user-images/no-avatar.png" style="width: 20%;"  class="img-reponsive rounded-circle" />
+                                        <img  src="https://uybor.uz/borless/uybor/img/user-images/no-avatar.png" style="width: 20%;"  class="img-fluid rounded-circle" />
                                     </ng-template>
                                
                                 </span>
