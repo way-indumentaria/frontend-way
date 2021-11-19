@@ -252,7 +252,12 @@ export class VendedoresComponent implements OnInit {
   }
 
   verImagenPerfil(imagen_perfil,id){
-    this.imagenes_url = String(imagen_perfil);
+    if(imagen_perfil)
+    {
+      this.imagenes_url = String(imagen_perfil);
+    }else{
+      this.imagenes_url = 'https://uybor.uz/borless/uybor/img/user-images/no-avatar.png';
+    }
     this.id_vendedor_img = id;
     this.mensaje_upload = ''
   }
