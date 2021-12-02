@@ -237,6 +237,11 @@ export class VentaDetalleComponent implements OnInit {
     $('#myModalEnviar').modal('toggle');
   }
 
+  cerrarModal2()
+  {
+    $('#myModalEnviar2').modal('toggle');
+  }
+
   obtenerTotalPagaImpaga()
   {
 
