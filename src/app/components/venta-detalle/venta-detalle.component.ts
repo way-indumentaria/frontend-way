@@ -146,6 +146,20 @@ export class VentaDetalleComponent implements OnInit {
   }
 
 
+  enviarTodoPagas()
+  {
+      this.ventaServ.sendAllPagas(this.id_vpi).subscribe(
+        resultado => {
+          this.obtenerVentasImpagas(this.id_vpi);
+          this.obtenerVentasPagas(this.id_vpi);
+          this.obtenerTotalPagaImpaga();
+        },
+        error => {
+          console.log(error)
+        }
+      )
+  }
+
   enviarImpagasPagas(estado_radio:number)
   {
     this.ventaServ.sendPagasImpagas(this.input_id_venta_detalle,this.input_id_producto,estado_radio).subscribe(

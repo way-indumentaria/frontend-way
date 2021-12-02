@@ -13,6 +13,11 @@ export class VentasService {
 
   }
 
+  sendAllPagas(id_vpi)
+  {
+    return this.http.get('https://backend-way.herokuapp.com/enviar-todo-pagas/'+id_vpi);
+  }
+
   getVentas()
   {
      return this.http.get<IVenta[]>('https://backend-way.herokuapp.com/ventas');

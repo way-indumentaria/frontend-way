@@ -10,6 +10,7 @@
                     <li class="nav-item ml-auto">
                         <a (click)="apagarBoton(0)" data-toggle="modal" data-target="#myModalEnviar" [ngClass]='{disabled: disabled}'  class="btn btn-outline-info btn-sm">Enviar a stock</a>
                         <a (click)="apagarBoton(1)" data-toggle="modal" data-target="#myModalEnviar" [ngClass]='{disabled: disabled}' class="btn btn-outline-warning btn-sm">Enviar a nueva venta</a>
+                        <a data-toggle="modal" data-target="#myModalEnviar2"  class="btn btn-success btn-sm"> Todo <i class="fa fa-arrow-right"></i></a>
                     </li>
                 </ul>
             </div>
@@ -157,6 +158,29 @@
           <button type="button" class="btn btn-outline-danger btn-sm" (click)="cerrarModal()">Cancelar</button>
           <button [style]="display0" type="button" class="btn btn-outline-info btn-sm"  (click)="enviarStockVenta(0);cerrarModal()">Enviar a stock</button>
           <button [style]="display1" type="button" class="btn btn-outline-warning btn-sm" (click)="enviarStockVenta(1);cerrarModal()">Enviar a nueva venta</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+
+
+  <div id="myModalEnviar2" class="modal fade"  role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" >
+        
+      <!-- Modal content-->
+      <div class="modal-content" style="background-color: green;color: white;">
+        <div class="modal-header" style="border-color: green;">
+            <h4>Atención</h4>
+        </div>
+        <div class="modal-body" >
+          <p>¿Está seguro que desea llevar a cabo esta acción?</p>
+        </div>
+        <div class="modal-footer" style="border-color: green;">
+
+          <button type="button" class="btn btn-danger btn-sm mr-auto" (click)="cerrarModal()">Cancelar</button>
+          <button (click)="enviarTodoPagas()"  type="button" class="btn btn-success btn-sm" >Enviar a pagas</button>
+        
         </div>
       </div>
   
