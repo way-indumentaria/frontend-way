@@ -41,7 +41,10 @@ export class VendedoresService {
       fd.append('domicilio_garante',unVendedor.domicilio_garante);
       fd.append('telefono_garante',unVendedor.telefono_garante);
       fd.append('estado',String(unVendedor.estado));
-      fd.append('img-vendedor',files[0]);
+      if(files[0]){
+        fd.append('img-vendedor',files[0]);
+      }
+      
 
     return this.http.post('https://backend-way.herokuapp.com/vendedores', fd);
     
