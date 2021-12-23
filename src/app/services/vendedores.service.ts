@@ -41,7 +41,7 @@ export class VendedoresService {
       fd.append('domicilio_garante',unVendedor.domicilio_garante);
       fd.append('telefono_garante',unVendedor.telefono_garante);
       fd.append('estado',String(unVendedor.estado));
-      if(files[0]){
+      if(files){
         fd.append('img-vendedor',files[0]);
       }
       
