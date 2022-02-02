@@ -153,7 +153,7 @@ export class VentasComponent implements OnInit {
     return new Table([
         ['N°','Cod.Prod.','Producto','Cantidad','Costo($)','Importe unitario($)',/*'Total($)',*/'Fecha de venta','V',' D'],
         ...this.extractData(data),
-        ['',{text: 'Totales', bold:true},'',{text: this.cantidad_prendas, bold:true},{text: '$'+this.cantidad_costo, bold:true},'',/*'',*/'','','']
+        ['',{text: 'Totales', bold:true},'',{text: this.cantidad_prendas, bold:true},{text: ''},'',/*'',*/'','','']
     ])
     .layout({
         fillColor: (rowIndex:number,node:any, columnIndex:number):any => {
