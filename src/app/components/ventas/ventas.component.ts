@@ -276,7 +276,7 @@ export class VentasComponent implements OnInit {
         this.nombre_ape = this.listVendVentas[0].nombre.toUpperCase()+', '+this.listVendVentas[0].apellido.toUpperCase();
         this.buscarVenta= 'v_'+this.listVendVentas[0].id_vendedor;
 
-        this.mifoto = this.listVendVentas[0].imagen_perfil;
+        this.mifoto = (this.listVendVentas[0].imagen_perfil).substr(0,57)+'w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35'+(this.listVendVentas[0].imagen_perfil).substr(56);
         
         this.obtenerTotalPagaImpaga(this.listVendVentas[0].id_vendedor);
 
@@ -343,14 +343,15 @@ editarVenta(venta:IVenta){
   
 
 
-   public selectPill(index:number,id_vendedor:number,nombre:string,apellido:string, imagen_perfi:string) {
+   public selectPill(index:number,id_vendedor:number,nombre:string,apellido:string, imagen_perfil:string) {
      this.activePillIndex = index;
      this.buscarVenta = 'v_'+id_vendedor;
      this.formVenta.get('vendedor').setValue(id_vendedor);
      this.idVendedor = id_vendedor;
      this.nombre_ape = nombre.toUpperCase()+', '+apellido.toUpperCase();
 
-     this.mifoto = imagen_perfi;
+     //this.mifoto = imagen_perfi;
+     this.mifoto = imagen_perfil.substr(0,57)+'w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35'+imagen_perfil.substr(56);
 
      this.obtenerTotalPagaImpaga(id_vendedor);
      this.cantidadProductosPorVendedor();
