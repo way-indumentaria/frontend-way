@@ -351,9 +351,11 @@ editarVenta(venta:IVenta){
      this.idVendedor = id_vendedor;
      this.nombre_ape = nombre.toUpperCase()+', '+apellido.toUpperCase();
 
-     if(imagen_perfil)
+     if(imagen_perfil !== '')
      {
         this.mifoto = imagen_perfil.substr(0,57)+'w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_black,b_rgb:262c35'+imagen_perfil.substr(56);
+     }else{
+       this.mifoto = 'https://uybor.uz/borless/uybor/img/user-images/no-avatar.png'
      }
      
      this.obtenerTotalPagaImpaga(id_vendedor);
