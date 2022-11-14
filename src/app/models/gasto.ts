@@ -5,4 +5,4 @@ export interface IGasto {
     categoria:string;
     descripcion_categoria?:string;
 }
-//probando
+//probando 2
